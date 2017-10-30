@@ -1,0 +1,56 @@
+# Tim trying to fix up Matteo's runner-driven binding enzyme
+# special states: 0,1,...19 
+# ordinary states: 20, 21, ...
+type: A, B
+# Initial condition
+number of particles: 78
+state max: 100
+fill: A20 0.5, A21 0.5
+
+# enzyme has form: B1 - B0 - Bi - Bp - B2 - Bq - Bj - B0 - B1 (a stopper at each end and in the middle, with two runners)
+# which should catalyse Ai + Aj -> Ap-Aq
+
+# e.g. B1 - B0 - B20 - B22 - B2 - B23 - B21 - B0 - B1 which should catalyse A20 + A21 -> A22-A23
+# (but then has problem of bonding happening on different sides - one solution is to link with B1's around the back
+
+# initial bonding (often in the wrong place but is quickly reversible)
+Ax Bx -> Ax-B3
+Ax-B3 -> Ax Bx
+# if the bond was to the right place (next to the B0) then we make it permanent by changing the B3 to a B4
+B3-B0 -> B4-B5
+# we take a copy of what the input state was (hopefully it hasn't changed!) to allow the enzyme to reset later
+B4-Ax -> Bx-Ax
+# B5 runs to the middle:
+B5-B2 -> B6-B12           # first runner to arrive changes the middle stopper to 12 (and itself to 6)
+B5-B12 -> B14-B13         # second runner changes stopper to 13 and itself to 14
+B5-B1 -> B5-B1            # don't move past the end stoppers
+B5-Bx -> Bx-B5 : 0.01     # running (also using reaction order to ensure we don't move past the stopper, more general case of the three reactions above)
+B13-B6 -> B2-B14          # middle stopper then notifies the first runner to also change itself to 14 and resets
+# now we want to bond the attached reactants
+# B14 runs to the reactant:
+B14-B2 -> B14-B2          # don't move past the middle stopper
+B14-B1 -> B14-B1          # don't move past the end stoppers
+B14-Bx -> Bx-B14 : 0.01   # running (also using reaction order to ensure we don't move past the stopper, more general case of reaction above)
+B14-Ax -> B15-A7          # mark the reactant as ready to bond (since now we know we have two attached)
+A7 A7 -> A8-A32           # reactants bond! (hopefully the two we are holding, fatal if not)
+# (note that this introduces an asymmetry, allowing us to use a bump later on the matching side)
+A8-B15 -> A8-B16          # now side1 knows that the atoms have bonded
+A32-B15 -> A32-B33        # now side2 knows that the atoms have bonded
+# B16 runs to the middle, so that the reactants can take their new state safely:
+B16-B2 -> B17-B2          # B16 arrives at the middle stopper, changes itself to 17
+B16-B1 -> B16-B1          # don't move past the end stoppers
+B16-Bx -> Bx-B16 : 0.01   # running (also using reaction order, more general case of two reactions above)
+# B33 runs to the middle, so that the reactants can take their new state safely:
+B33-B2 -> B34-B2          # B33 arrives at the middle stopper, changes itself to 34
+B33-B1 -> B33-B1          # don't move past the end stoppers
+B33-Bx -> Bx-B33 : 0.01   # running (also using reaction order, more general case of two reactions above)
+# bump on the matching side
+B17 A8 -> B18 A30         # bump to tell this side of the reactant that this side's runner is at the middle stopper
+B34 A32 -> B18 A30        # bump to tell this side of the reactant that this side's runner is at the middle stopper
+A30-Bx -> Ax Bx           # reactants take their new state and immediately debond
+B18 B18 -> B19 B19 : 0.01 # only start resetting when we're sure that both reactants have been given a good chance to leave
+# B19 runs to the ends to reset
+B19-B2 -> B19-B2          # don't cross the middle stopper
+B19-B12 -> B19-B12        # don't cross the middle stopper in its waiting state either
+B19-B1 -> B0-B1           # reset when we reach the end stopper. enzyme is ready to go again!
+B19-Bx -> Bx-B19 : 0.01   # running (also using reaction order, more general case of the two reactions above)

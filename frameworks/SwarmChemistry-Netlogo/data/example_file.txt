@@ -1,0 +1,4 @@
+#test for file inport data - comment line - Format is: first line: names; each line: values for species (id)
+id proportion cohesive-force-strength aligning-force-strength separating-force-strength steering-proba pace-keeping-tendancy perception-radius normal-speed max-speed
+#1 1 1 1 20 0.1 0 100 1 5
+2 100 1 0 0 0 0 10 1 5

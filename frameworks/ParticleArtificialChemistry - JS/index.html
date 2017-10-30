@@ -1,0 +1,197 @@
+<html>
+<title>jsChemistry</title>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="vis.min.js"></script>
+
+<script src="point2d.js"></script>
+<script src="collision.js"></script>
+<script src="reaction.js"></script>
+<script src="drawing.js"></script>
+<script src="math.js"></script>
+</head>
+<body>
+
+<body onload="animate();"><body> <!-- avoid starting twice -->
+
+<canvas id="myCanvas"></canvas>
+<div id="reactionlist" style="position:absolute;left:1050px;top:0px">
+</div>
+
+<p>
+<button type="button" onclick="pause = !pause;">Pause/Play</button>
+<button type="button" onclick="speed = fastSpeed;">Fast</button>
+<button type="button" onclick="speed = mediumSpeed;">Medium</button>
+<button type="button" onclick="speed = slowSpeed;">Slow</button>
+<p>
+<button type="button" onclick="show_unbonded_atoms = !show_unbonded_atoms;">Show/hide the bath</button>
+<button type="button" onclick="withTemperatureGradient = !withTemperatureGradient;">Temperature gradient on/off</button>
+<button type="button" onclick="updateReactionList();">Update Reaction Graph</button>
+<p>
+Estimated energy usage: <span id="energy"></span>
+<div id="reactiongraph">
+</div>
+
+<p> 
+    
+<hr>
+<h4>What's going on?</h4>
+<p>There are two template-replicating polymers present from the start. Hide the bath to see them better. The two are: eacbdf (purple-red-green-blue-yellow-cyan) and ebdbdf (purple-green-yellow-green-yellow-cyan). 
+They replicate by pulling in matching atoms from the surrounding bath.</p>
+
+<p>The colors (abcdef) of the atoms never change. The numbers/letters you see (01233456789ABCDEFHI) are their states. We use the states to direct the replication process. Replication works like this:</p>
+
+<blockquote>eabcdf --> eabcdffcdbae --> eabcdf + fcdbae</blockquote>
+
+<p>Reactions happen between pairs of atoms, and can bond or unbond them and change their states. All reactions are reversible with equal probability. Bonding reactions are energetically downhill, unbonding reactions are uphill.</p>
+
+<p>The reactions in our system are listed below. They are designed to let <i>any</i> sequence e{abcd}*f replicate. Credit to Dave Mann for inventing this form of template-replication (see the Organic Builder paper).</p>
+
+<p><pre><tt>    
+    x1yD    -> xDy1    // message-passing
+    x2yD    -> xDy2
+    x3yD    -> xDy3
+    x4yD    -> xDy4
+    x5yD    -> xDy5
+    x6yD    -> xDy6
+    x7 + a0 -> xDaE    // bond the appropriate type
+    x8 + b0 -> xDbE
+    x9 + c0 -> xDcE
+    xA + d0 -> xDdE
+    xB + e0 -> xDeF    // (if bonded an 'e' then we start reset1 (F) )
+    xC + f0 -> xDfE
+    x1yE    -> xDy7    // activate for the next one to be bonded
+    x2yE    -> xDy8
+    x3yE    -> xDy9
+    x4yE    -> xDyA
+    x5yE    -> xDyB
+    aFxD    -> a1xF    // reset1 passes over a base 'a', setting its state to 1
+    bFxD    -> b2xF
+    cFxD    -> c3xF
+    dFxD    -> d4xF
+    eFxD    -> e5xF
+    fFfD    -> fC + fG  // unbonds when reset1 passes over the central f-f
+    fGxD    -> fGxH    // reset2 (G) starts moving
+    aHxD    -> aGxH    // reset2 passes over a base
+    bHxD    -> bGxH
+    cHxD    -> cGxH
+    dHxD    -> dGxH
+    eHxG    -> e5xI    // reset2 ends, starts reset3 (I)
+    aIxG    -> a1xI    // reset3 passes over a base
+    bIxG    -> b2xI
+    cIxG    -> c3xI
+    dIxG    -> d4xI
+    fIa1    -> fCa1   // reset3 gets to the end
+    fIb2    -> fCb2
+    fIc3    -> fCc3
+    fId4    -> fCd4
+    fIe5    -> fCe5
+</tt></pre></p>
+
+<p>This is a bit complicated, which is annoying. Here are some notes:</p>
+
+<blockquote><pre>
+states 1-6: passive message saying we would like to bond a-f respectively
+states 7-C: active end of the growing molecule, ready to bond the next atom (of type a-f respectively)
+state D: empty space in message-passing
+state E: active end ready to be told what the next atom to be bonded is
+states FGHI: resets 1,2,3,4
+</pre></blockquote>
+
+<p>The simplest possible replicator is e5fC.</p>
+    
+<script>
+
+var reactionList = document.getElementById('reactionlist');
+var transitionGraph = new vis.Graph(document.getElementById('reactiongraph'),
+									{},
+									{physics:{barnesHut:{springLength:75,springConstant:0.015, gravitationalConstant: -2000, centralGravity: 1}}});							
+
+var slowSpeed = 1;
+var mediumSpeed = 5;
+var fastSpeed = 100;
+    
+var withReversibility = true;
+var withTemperatureGradient = true;
+var withCosmicRays = false;
+var cosmicRayBondingProbability = 0.00001;
+var cosmicRayUnbondingProbability = 0.00001;
+var speed = slowSpeed;
+var logReactions = false;
+var scale = 10.0;
+var show_unbonded_atoms = true;
+var xSize = 100;
+var ySize = 60;
+
+var chararray = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
+var canvas  = document.getElementById( 'myCanvas' );
+var context = canvas.getContext( '2d' );
+
+canvas.width = (xSize+2)*scale;
+canvas.height = (ySize+2)*scale;
+
+var atoms = new Array();
+setupInteractionMatrix();
+
+for( var i = 0; i < 500; ++i )
+{
+    var charidx = Math.floor(Math.random()*chararray.length);
+    atoms[i] = new Atom();
+    atoms[i].pos = new Point2D( Math.random()*xSize, Math.random()*ySize );
+    atoms[i].vel = new Point2D( Math.random()*2.0-1.0, Math.random()*2.0-1.0 );
+    atoms[i].label = chararray[charidx] + "0";
+}
+
+addMolecule(["e5","a1","b2","c3","d4","fC"],10,20,atoms); // for ladder-free rep the atoms pass their type as a number (a=1,etc)
+addMolecule(["e5","b2","d4","b2","d4","fC"],10,30,atoms); // for ladder-free rep the atoms pass their type as a number (a=1,etc)
+//addMolecule(["e5","fC"],10,30,atoms); // simplest replicator in this ruleset
+
+function onMouseMove( evt )
+{
+}
+
+var pause = false;
+
+window.requestAnimFrame = (function(callback)
+{
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+        function(callback) {
+            window.setTimeout(callback, 1000 / 30);
+        };
+})();
+
+var totalTime = 0;
+
+function update()
+{
+    if (!pause)
+    for( var i = 0; i < speed; ++i )
+    {
+        iterateAll( atoms, 0.2 );
+        totalTime++;
+    }
+}
+
+function animate()
+{
+    update();
+
+    // draw the background
+    context.fillStyle = "rgb(200,200,200)";
+    context.beginPath();
+    context.fillRect( 0, 0, canvas.width, canvas.height );
+    context.closePath();
+
+    drawAtoms( atoms, context );
+	
+	updateEnergy();
+    // request new frame
+    requestAnimFrame( animate );
+}
+
+</script> 
+</body>
+</html>

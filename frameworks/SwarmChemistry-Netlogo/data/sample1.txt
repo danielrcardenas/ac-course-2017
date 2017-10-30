@@ -1,0 +1,4 @@
+# Configuration file automatically created at 06:37:53.999 PM 04-oct.-2013
+id proportion cohesive-force-strength aligning-force-strength separating-force-strength steering-proba pace-keeping-tendancy perception-radius normal-speed max-speed
+1 50 0.6520982596794117 0.7744873232186464 12.592973778191475 0.21208248953781886 0.43577755751693276 36.23824829847001 5 20
+2 50 0.2557797683854223 0.4475612471072799 0 0.19288220549536472 0.461967008474703 51.39445988937076 5 20
