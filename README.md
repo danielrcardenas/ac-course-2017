@@ -1,3 +1,3 @@
 # ac-course-2017
-Advanced Natural Language Processing  (COSC 7336): Introduction to Deep Learning for Text Analysis and Understanding: 
-https://fagonzalezo.github.io/dl-tau-2017-2/
+Artificial Chemistries and self assembly: Introduction to Artificial Chemistries and Understanding: 
+https://danielrcardenas.github.io/ac-course-2017/
