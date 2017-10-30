@@ -10,7 +10,7 @@ The course has a propose to give some concepts about particle self-assembly by u
 
 * Artificial Chemistries - basic concepts. 
 * Reactive computation via artificial chemistries.
-* The chemistri of life
+* The chemistry of life
   * What is life?
   * The basic componetens of life.
   * Different contributions from artificial chemistries to the origin of life.
