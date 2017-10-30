@@ -16,8 +16,8 @@ image:
 		</tr>
 		<small>
 			<tr>
-			<td>Sep 8th</td>
-				<td>Introduction to DL and NLP</td>
+			<td>1 week</td>
+				<td>Basic concepts of Artificial Chemistries</td>
 				<td>
 				<a href= "lecture1_slides.pdf">Lecture 1 slides</a><br>
 				<a href= "https://github.com/fagonzalezo/dl-tau-2017-2/blob/master/quickIntro2NN.ipynb">NN notebook</a><br>

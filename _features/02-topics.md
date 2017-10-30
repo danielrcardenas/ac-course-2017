@@ -5,23 +5,31 @@ heading: Course topics
 subheading: 
 image: 
 ---
+The course has a propose to give some concepts about particle self-assembly by using computational tools like Artficial Chemistries (AC). The AC is a tools to simulate chemical reactions processes. Those chemical reactions generates the self-assembling of molecules from particles. The will be capable to recreate chemical models on a simulation to represent natural phenomenon like, self-assembly-, self-organization and self-replication. The stufen should make a presentation about topics, create computational simulations and develop a final proyect focusen on an engineering problem. 
 
-The course has two main axes: the first has to do with the problem which is text analysis and understanding, and the second with the methods to address this problem which are based on neural networks in general, and deep learning in particular. The concrete topics that we plan to address during the course, on both axes, are the following:
 
-* Deep learning (DL): 
-  * Review of machine learning and neural networks fundamental concepts
-  * Computational frameworks for neural network implementation
-  * DL models:
-    * Convolutional neural networks
-    * Recurrent neural networks (RNN): including LSTM, GRU, sequence to sequence RNN, bidirectional RNNs.
-    * Attention models
-    * Other models: generative adversarial networks, memory neural networks.
+* Artificial Chemistries - basic concepts. 
+* Reactive computation via artificial chemistries.
+* The chemistri of life
+  * What is life?
+  * The basic componetens of life.
+  * Different contributions from artificial chemistries to the origin of life.
 
-* Text analysis and understanding:
-  * Review of natural language processing and analysis fundamental concepts.
-  * Word level semantics
-  * Text classification: sentiment analysis, author profiling, author identification, text categorization
-  * Language model: OCR output correction
-  * Conditional language models: summarization 
-  * Text Similarity: community question answering
+* Evolution
+  * Open-ended evolution
+  * Self-evolution and self-assembly
+  * The growing of compleixty
+*The bio-inspired artificial chemistires
+  * Chains based on artificial chemistries
+  * Espatial structure and movement of artificial chemistries.
+* Self-organization and emergent phenomenon
+  * Self-organized systems examples.
+  * Self-organice system concepts.
+  * Explanatory concepts of emergence.
+* Artificial chemistries applications:
+  * Fundamental implementation.
+  * Search and optimizations inspired on chemistry.
+  * Artificial chemistry and genetic programming.
+  * Bio-chemisty and chemistry computation.
+ 
 
