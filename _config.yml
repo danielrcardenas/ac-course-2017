@@ -1,6 +1,6 @@
-title: Advanced Natural Language Processing (COSC 7336)
-description: Introduction to Deep Learning for Text Analysis and Understanding, University of Houston 2017-2
-sitename: COSC 7336 2017-2
+title: Introduction to Artificial Chemisties
+description: Introduction to Artificial Chemisties, Universidad Nacional de Colombia 2017-2
+sitename: Artificial Chemisties Course 2017
 baseurl: '/ac-course-2017'
 sass:
   sass_dir: /assets/_sass
