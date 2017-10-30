@@ -20,12 +20,12 @@ image:
 				<td>Basic concepts of Artificial Chemistries</td>
 				<td>
 				<a href= "lecture1_slides.pdf">Lecture 1 slides</a><br>
-				<a href= "https://github.com/fagonzalezo/dl-tau-2017-2/blob/master/quickIntro2NN.ipynb">NN notebook</a><br>
+				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/2017-%20artificial%20chemistries2.pptx">NN notebook</a><br>
 				Reading material:<br>
 				book chapter 1 and 2
 				</td>
 				<td>
-				<a href= "assign0.pdf">Assignment 0</a><br>
+				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/2002%20-%20Evolvable%20Self-Replicating%20Molecules%20in%20an%20Artificial%20Chemistry%20-%20Hutton.pdf">Assignment 0</a><br>
 				Due date: week 5
 				</td>
 			</tr>
