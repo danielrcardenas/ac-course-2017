@@ -8,10 +8,8 @@ image:
 
 ### Instructors
 
-[Thamar Solorio](http://solorio.uh.edu/)  
-*The University of Houston*
 
-[Fabio A. González](http://dis.unal.edu.co/~fgonza/)  
+[Daniel Rodríguez Cárdenas](http://dis.unal.edu.co/~fgonza/)  
 *Universidad Nacional de Colombia*
 
 ### Course Syllabus
