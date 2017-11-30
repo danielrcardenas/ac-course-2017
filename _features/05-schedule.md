@@ -30,6 +30,8 @@ image:
 			</tr>
 
 			<tr>
+			
+
 			<td>2 week</td>
 				<td>Chemical reaction computation</td>
 				<td>
@@ -43,6 +45,17 @@ image:
 				
 				</td>
 			</tr>
+			<td>3 week</td>
+				<td>The chemistry of life</td>
+				<td>
+				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/Presentaciones/2-La%20quimica%20de%20la%20vida.pptx">Lecture 3 slides</a><br>
+				
+				<td>
+				
+				
+				</td>
+			</tr>
+
 			<tr>
 			<td>4 week</td>
 				<td>Evolution</td>
@@ -80,13 +93,42 @@ image:
 			<td>6 week</td>
 				<td>Self-organization</td>
 				<td>
-				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/Presentaciones/4-Quimicas%20artificiales%20bio-inspiradas.pptx">Lecture 6 slides</a><br>
-				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/Talleres/Ejemplos/0.%20Ejemplo%20emergencia%20y%20autoorganizaci%C3%B3n%20(juego%20de%20la%20vida).nlogo">Example 1</a><br>
+				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/Presentaciones/5-presentacion-clase-alife.pdf">Lecture 6 slides</a><br>
 				
 				</td>
 				
 				<td>
-				<a href= "https://github.com/danielrcardenas/ac-course-2017/tree/master/Talleres/Nociones%20de%20programaci%C3%B3n%20(59)">Overview</a><br>
+				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/Presentaciones/Lecture13.pdf">Reading</a><br>
+				
+				</td>
+				
+			
+			</tr>
+
+			<td>7 week</td>
+				<td>Self-organization from chemistry and emergence</td>
+				<td>
+				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/Presentaciones/5-Autoorganizacion.pptx">Lecture 6 slides</a><br>
+				
+				</td>
+				
+				<td>
+				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/Articulos/srep37969.pdf">Reading</a><br>
+				
+				</td>
+				
+			
+			</tr>
+
+			<td>8 week</td>
+				<td>Self-organization from chemistry and emergence</td>
+				<td>
+				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/Presentaciones/6-The%20essence%20of%20life.pptx">Lecture 8 slides</a><br>
+				
+				</td>
+				
+				<td>
+				
 				
 				</td>
 				
