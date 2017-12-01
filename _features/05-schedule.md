@@ -104,11 +104,11 @@ image:
 				
 			
 			</tr>
-
+			<tr>
 			<td>7 week</td>
 				<td>Self-organization from chemistry and emergence</td>
 				<td>
-				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/Presentaciones/5-Autoorganizacion.pptx">Lecture 6 slides</a><br>
+				<a href= "https://github.com/danielrcardenas/ac-course-2017/blob/master/Presentaciones/5-Autoorganizacion.pptx">Lecture 7 slides</a><br>
 				
 				</td>
 				
@@ -119,7 +119,7 @@ image:
 				
 			
 			</tr>
-
+			<tr>
 			<td>8 week</td>
 				<td>Self-organization from chemistry and emergence</td>
 				<td>
